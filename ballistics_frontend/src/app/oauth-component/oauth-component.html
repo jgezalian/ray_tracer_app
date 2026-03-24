@@ -1,0 +1,11 @@
+@if (getAuth()) {
+  <app-input-form-component></app-input-form-component>
+  <div class="container authenticated">
+    Logged in as: <span id="user">{{getUser().getName()}}</span>
+  </div>
+} @else {
+  <div class="container unauthenticated">
+    Login with Google: <a href="http://localhost:8080/oauth2/authorization/google">click here</a>
+  </div>
+}
+

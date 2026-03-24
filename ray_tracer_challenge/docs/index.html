@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ray tracer demo</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 24px;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 8px;
+        margin: 12px 0;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      input[type="number"] {
+        width: 120px;
+        padding: 4px 6px;
+      }
+
+      button {
+        padding: 6px 12px;
+      }
+
+      #canvas {
+        display: block;
+        margin-top: 16px;
+      }
+
+      #loading-container {
+        display: none;
+        margin-top: 8px;
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+
+      #loader {
+        width: 32px;
+        height: 32px;
+        border: 4px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-left: 8px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <p>
+        This is an <strong>in‑progress</strong> project which uses Emscripten to compile a C++ ray tracer to
+        WebAssembly. It currently renders a predefined scene on request, you can input resolution. A very high resolution may not render due to limited available memory. Come back later to see updates to the scene.
+      </p>
+      <p>
+      <a href="https://github.com/jgezalian/ray-tracer">github repo</a>
+      </p>
+
+      <div class="controls">
+        <div class="field">
+          <label for="width">Width</label>
+          <input id="width" type="number" min="0"/>
+        </div>
+        <div class="field">
+          <label for="height">Height</label>
+          <input id="height" type="number" min="0"/>
+        </div>
+        <button type="button" onclick="render()">render</button>
+      </div>
+
+      <div id="loading-container">
+        <label for="loader">Rendering image</label>
+        <div id="loader"></div>
+      </div>
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <script src="sphere_on_plane.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

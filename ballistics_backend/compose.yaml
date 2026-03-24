@@ -1,0 +1,55 @@
+services:
+  backend:
+    build: backend
+    ports:
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+    environment:
+      - POSTGRES_DB=ballistics_db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d ballistics_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    ports:
+      - 5050:80
+    environment:
+      # Required by pgAdmin
+      PGADMIN_DEFAULT_EMAIL: jgezalianpro@gmail.com
+      #add this in boox notes
+      PGADMIN_DEFAULT_PASSWORD: password
+
+      # Don't require the user to login
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+
+      # Don't require a "master" password after logging in
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+
+    #optional volume to access host files within pgadmin
+    # volumes:
+    #   - type: bind
+    #     source: dir
+    #     target: /opt/dir
+
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
