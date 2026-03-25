@@ -20,25 +20,17 @@ public class RenderService {
 
     private final VideoStorageService vs;
     private final Path tmp_dir_path;
-    private final Path tmp_dir_path_rgb;
-    private final Path tmp_dir_path_renders;
 
     public RenderService(VideoStorageService vs,
-            @Value("${app.tmp.dir}") String tmp_dir_path_string,
-            @Value("${app.tmp.dir.rgb}") String tmp_dir_path_rgb_string,
-            @Value("${app.tmp.dir.renders}") String tmp_dir_path_renders_string) {
+            @Value("${app.tmp.dir}") String tmp_dir_path_string) {
         this.vs = vs;
         this.tmp_dir_path = Paths.get(tmp_dir_path_string);
-        this.tmp_dir_path_rgb = Paths.get(tmp_dir_path_rgb_string);
-        this.tmp_dir_path_renders = Paths.get(tmp_dir_path_renders_string);
     }
 
     public void dir_check(Path tmp_dir_path) {
         try {
             if (!(Files.exists(tmp_dir_path) && Files.isDirectory(tmp_dir_path))) {
-                Files.createDirectory(tmp_dir_path);
-                Files.createDirectory(tmp_dir_path_rgb);
-                Files.createDirectory(tmp_dir_path_renders);
+                Files.createDirectories(tmp_dir_path);
             } else
                 return;
         } catch (IOException e) {
@@ -47,9 +39,12 @@ public class RenderService {
 
     }
 
-    public void RenderProcess(SceneParam sp) {
+    public void RenderProcess(SceneParam sp, String user_id) {
+        UUID job_id = UUID.randomUUID();
+        String job_id_string = job_id.toString();
 
-        dir_check(tmp_dir_path);
+        Path job_dir = tmp_dir_path.resolve(job_id_string);
+        dir_check(job_dir);
         float[] v = sp.getVelocities();
         String v_x = String.valueOf(v[0]);
         String v_y = String.valueOf(v[1]);
@@ -57,7 +52,7 @@ public class RenderService {
         try {
             Path exe = Paths.get("src/main/c/physics_test").toAbsolutePath();
             ProcessBuilder pb = new ProcessBuilder(exe.toString(), v_x, v_y);
-            pb.directory(tmp_dir_path_rgb.toFile());
+            pb.directory(job_dir.toFile());
             File log = new File("log");
             pb.redirectErrorStream(true);
             pb.redirectOutput(Redirect.appendTo(log));
@@ -72,17 +67,15 @@ public class RenderService {
             System.err.println("Caught IOException: " + e.getMessage());
         }
 
-        Path render_rgb = Paths.get(".tmp/rgb/render.rgb");
-        UUID job_id = UUID.randomUUID();
-        String job_id_string = job_id.toString();
+        Path render_rgb = job_dir.resolve("render.rgb");
 
         try {
             ProcessBuilder pb = new ProcessBuilder(
                     "ffmpeg", "-f", "rawvideo", "-pix_fmt", "rgb24", "-video_size", "1280x720",
                     "-framerate", "120",
-                    "-i", "../rgb/render.rgb", job_id_string + ".mp4");
+                    "-i", "render.rgb", "render.mp4");
 
-            pb.directory(tmp_dir_path_renders.toFile());
+            pb.directory(job_dir.toFile());
             File log = new File("log1");
             pb.redirectErrorStream(true);
             pb.redirectOutput(Redirect.appendTo(log));
@@ -91,7 +84,7 @@ public class RenderService {
             assert pb.redirectOutput().file() == log;
             assert p.getInputStream().read() == -1;
             int exitCode = p.waitFor();
-            Path video = Paths.get(".tmp/renders/" + job_id_string + ".mp4");
+            Path video = job_dir.resolve("render.mp4");
 
             if (exitCode == 0 && Files.exists(video)) {
                 Files.delete(render_rgb);
@@ -102,7 +95,10 @@ public class RenderService {
             System.err.println("Caught IOException: " + e.getMessage());
         }
 
-        vs.storeVideo(job_id_string);
+        vs.storeVideo(job_id_string, user_id, job_dir);
+
+
+ 
 
     }
 
