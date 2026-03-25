@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jgezalian.ballistics_backend.service.RenderService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class RenderController {
     private final SceneParamRepository repository;
     private final RenderService rs;

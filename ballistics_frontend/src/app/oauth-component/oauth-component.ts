@@ -28,12 +28,13 @@ export class OauthComponent {
 
   getUserData() {
     type user_response = { name: string };
-    return this.http.get<user_response>('http://localhost:8080/user', { withCredentials: true });
+    return this.http.get<user_response>('api/user', { withCredentials: true });
   }
 
   ngOnInit() {
     this.getUserData().subscribe({
       next: (user) => {
+        console.log(user);
         this.user.setName(user.name);
         this.auth.set(true);
       },

@@ -15,7 +15,9 @@ import { HttpClient } from '@angular/common/http';
 export class InputFormComponent {
   private http = inject(HttpClient);
   submitted = false;
+
   model = new InputParams(0, 0);
+
   onSubmit(form: NgForm) {
     if (form.invalid) {
       form.control.markAllAsTouched();
@@ -23,11 +25,15 @@ export class InputFormComponent {
     }
 
     const userParams = new InputParams(this.model.v_x, this.model.v_y);
-    this.http.post<string>('http://localhost:8080/render', userParams, {mode : 'cors'}).subscribe((response) => {
-      console.log(response);
-    });
+    this.http
+      .post<string>('api/render', userParams, {
+        mode: 'cors',
+        withCredentials: true
+      })
+      .subscribe((response) => {
+        console.log(response);
+        
+      });
     this.submitted = true;
-
-    
   }
 }
