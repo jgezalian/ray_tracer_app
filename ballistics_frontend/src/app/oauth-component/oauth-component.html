@@ -2,6 +2,7 @@
   <app-input-form-component></app-input-form-component>
   <div class="container authenticated">
     Logged in as: <span id="user">{{getUser().getName()}}</span>
+    <button (click)="logout()">logout</button>
   </div>
 } @else {
   <div class="container unauthenticated">

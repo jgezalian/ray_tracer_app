@@ -3,7 +3,7 @@ package com.jgezalian.ballistics_backend.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-
+import org.springframework.security.config.web.server.OidcBackChannelServerLogoutHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 // import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -31,9 +31,10 @@ public class OAuth2Login {
                                                 .authenticationEntryPoint(
                                                                 new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                                 .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("http://localhost:4200", true));
-                // http.csrf((csrf) -> csrf
-                // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
                 http.csrf((csrf) -> csrf.spa());
+                http.logout(l -> l
+                                .logoutSuccessUrl("http://localhost:4200").permitAll());
                 // http.exceptionHandling(e -> e
                 // .accessDeniedHandler((req, res, ex) -> {
                 // log.warn("403 {} {} ex={}", req.getMethod(), req.getRequestURI(),
@@ -42,6 +43,8 @@ public class OAuth2Login {
                 // })
                 // .authenticationEntryPoint(new
                 // HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
+                // http.csrf((csrf) -> csrf
+                // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
                 return http.build();
         }

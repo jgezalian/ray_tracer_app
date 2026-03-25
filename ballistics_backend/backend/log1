@@ -1810,3 +1810,93 @@ frame=  173 fps=0.0 q=-1.0 Lsize=      36KiB time=00:00:01.42 bitrate= 209.4kbit
 [libx264 @ 0x1446074e0] ref B L0: 64.7% 32.8%  2.4%
 [libx264 @ 0x1446074e0] ref B L1: 97.2%  2.8%
 [libx264 @ 0x1446074e0] kb/s:187.17
+ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.6.3.2)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.0.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvpx --enable-libx265 --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      60.  8.100 / 60.  8.100
+  libavcodec     62. 11.100 / 62. 11.100
+  libavformat    62.  3.100 / 62.  3.100
+  libavdevice    62.  1.100 / 62.  1.100
+  libavfilter    11.  4.100 / 11.  4.100
+  libswscale      9.  1.100 /  9.  1.100
+  libswresample   6.  1.100 /  6.  1.100
+[rawvideo @ 0x12ce05c80] Stream #0: not enough frames to estimate rate; consider increasing probesize
+[rawvideo @ 0x12ce05c80] Estimating duration from bitrate, this may be inaccurate
+Input #0, rawvideo, from '../rgb/render.rgb':
+  Duration: 00:00:00.02, start: 0.000000, bitrate: 2654154 kb/s
+  Stream #0:0: Video: rawvideo (RGB[24] / 0x18424752), rgb24, 1280x720, 2654208 kb/s, 120 tbr, 120 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x12e8046a0] using cpu capabilities: ARMv8 NEON DotProd I8MM
+[libx264 @ 0x12e8046a0] profile High 4:4:4 Predictive, level 4.2, 4:4:4, 8-bit
+[libx264 @ 0x12e8046a0] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=16 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'b4e26812-1bcc-4353-a658-e54ebf3953e0.mp4':
+  Metadata:
+    encoder         : Lavf62.3.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1280x720, q=2-31, 120 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc62.11.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[out#0/mp4 @ 0x600003c50000] video:4KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 19.270833%
+frame=    2 fps=0.0 q=-1.0 Lsize=       5KiB time=00:00:00.01 bitrate=2528.1kbits/s speed=0.822x elapsed=0:00:00.02    
+[libx264 @ 0x12e8046a0] frame I:1     Avg QP:24.24  size:  3045
+[libx264 @ 0x12e8046a0] frame P:1     Avg QP:24.63  size:   682
+[libx264 @ 0x12e8046a0] mb I  I16..4: 54.6% 45.3%  0.1%
+[libx264 @ 0x12e8046a0] mb P  I16..4:  4.7%  0.0%  0.0%  P16..4:  9.7%  0.2%  1.2%  0.0%  0.0%    skip:84.2%
+[libx264 @ 0x12e8046a0] 8x8 transform intra:43.3%
+[libx264 @ 0x12e8046a0] coded y,u,v intra: 7.1% 0.1% 0.1% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0x12e8046a0] i16 v,h,dc,p: 17% 14%  2% 68%
+[libx264 @ 0x12e8046a0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 55%  6% 26%  3%  2%  2%  1%  4%  0%
+[libx264 @ 0x12e8046a0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 10%  8% 42% 10% 12%  6%  8%  0%  2%
+[libx264 @ 0x12e8046a0] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x12e8046a0] kb/s:1788.96
+ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.6.3.2)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.0.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvpx --enable-libx265 --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      60.  8.100 / 60.  8.100
+  libavcodec     62. 11.100 / 62. 11.100
+  libavformat    62.  3.100 / 62.  3.100
+  libavdevice    62.  1.100 / 62.  1.100
+  libavfilter    11.  4.100 / 11.  4.100
+  libswscale      9.  1.100 /  9.  1.100
+  libswresample   6.  1.100 /  6.  1.100
+[rawvideo @ 0x149605c80] Stream #0: not enough frames to estimate rate; consider increasing probesize
+[rawvideo @ 0x149605c80] Estimating duration from bitrate, this may be inaccurate
+Input #0, rawvideo, from '../rgb/render.rgb':
+  Duration: 00:00:00.53, start: 0.000000, bitrate: 2654208 kb/s
+  Stream #0:0: Video: rawvideo (RGB[24] / 0x18424752), rgb24, 1280x720, 2654208 kb/s, 120 tbr, 120 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (rawvideo (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x139605030] using cpu capabilities: ARMv8 NEON DotProd I8MM
+[libx264 @ 0x139605030] profile High 4:4:4 Predictive, level 4.2, 4:4:4, 8-bit
+[libx264 @ 0x139605030] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=16 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '5e2dc4ef-55d3-486f-9539-419948860cc2.mp4':
+  Metadata:
+    encoder         : Lavf62.3.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1280x720, q=2-31, 120 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc62.11.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[out#0/mp4 @ 0x600002fa4000] video:20KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 7.538135%
+frame=   63 fps=0.0 q=-1.0 Lsize=      21KiB time=00:00:00.50 bitrate= 342.8kbits/s speed=4.18x elapsed=0:00:00.12    
+[libx264 @ 0x139605030] frame I:1     Avg QP:18.21  size:  5209
+[libx264 @ 0x139605030] frame P:35    Avg QP:20.67  size:   280
+[libx264 @ 0x139605030] frame B:27    Avg QP:26.18  size:   168
+[libx264 @ 0x139605030] consecutive B-frames: 30.2% 34.9%  9.5% 25.4%
+[libx264 @ 0x139605030] mb I  I16..4: 46.4% 52.5%  1.1%
+[libx264 @ 0x139605030] mb P  I16..4:  0.2%  0.1%  0.0%  P16..4:  1.3%  0.2%  0.1%  0.0%  0.0%    skip:98.0%
+[libx264 @ 0x139605030] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  1.7%  0.1%  0.0%  direct: 0.0%  skip:98.1%  L0:24.5% L1:75.1% BI: 0.4%
+[libx264 @ 0x139605030] 8x8 transform intra:50.3% inter:63.3%
+[libx264 @ 0x139605030] coded y,u,v intra: 8.8% 0.5% 0.6% inter: 0.1% 0.0% 0.0%
+[libx264 @ 0x139605030] i16 v,h,dc,p:  8% 10%  2% 81%
+[libx264 @ 0x139605030] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 43%  8% 17%  8%  5%  6%  4%  8%  1%
+[libx264 @ 0x139605030] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 25% 16% 41%  3%  5%  4%  3%  3%  1%
+[libx264 @ 0x139605030] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x139605030] ref P L0: 70.4%  9.3% 11.0%  9.3%
+[libx264 @ 0x139605030] ref B L0: 82.4% 17.6%
+[libx264 @ 0x139605030] ref B L1: 98.8%  1.2%
+[libx264 @ 0x139605030] kb/s:298.18

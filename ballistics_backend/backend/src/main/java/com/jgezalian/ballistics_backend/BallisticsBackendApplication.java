@@ -20,8 +20,6 @@ public class BallisticsBackendApplication {
 
 
 
-
-
 // 1. set region
 // 2. aws sso login --profile jg-dev
 // 3. export AWS_PROFILE=jg-dev  

@@ -31,10 +31,22 @@ export class OauthComponent {
     return this.http.get<user_response>('api/user', { withCredentials: true });
   }
 
+  logout() {
+    const httpOptions: Object = {
+      responseType: 'text',
+      mode: 'cors',
+      withCredentials: true,
+    };
+    this.http
+      .post<string>('api/logout', null, httpOptions)
+      .subscribe((response) => {
+        window.location.reload();
+      });
+  }
+
   ngOnInit() {
     this.getUserData().subscribe({
       next: (user) => {
-        console.log(user);
         this.user.setName(user.name);
         this.auth.set(true);
       },
@@ -45,6 +57,4 @@ export class OauthComponent {
       },
     });
   }
-
-
 }
