@@ -73,7 +73,9 @@ public class RenderService {
             ProcessBuilder pb = new ProcessBuilder(
                     "ffmpeg", "-f", "rawvideo", "-pix_fmt", "rgb24", "-video_size", "1280x720",
                     "-framerate", "120",
-                    "-i", "render.rgb", "render.mp4");
+                    "-i", "render.rgb", "-c:v", "libx264",
+                    "-crf", "20",
+                    "-pix_fmt", "yuv420p", "render.mp4");
 
             pb.directory(job_dir.toFile());
             File log = new File("log1");
@@ -96,9 +98,6 @@ public class RenderService {
         }
 
         vs.storeVideo(job_id_string, user_id, job_dir);
-
-
- 
 
     }
 

@@ -32,11 +32,11 @@ public class RenderController {
 
     static class RenderResponse {
         public SceneParam SceneParam;
-        public String userId;
+        public String user_id;
 
         RenderResponse(SceneParam SceneParam, String userId) {
             this.SceneParam = SceneParam;
-            this.userId = userId;
+            this.user_id = userId;
         }
     }
 
@@ -44,9 +44,9 @@ public class RenderController {
     public RenderResponse renderResponse(@AuthenticationPrincipal OAuth2User principal,
             @RequestBody SceneParam newSceneParam) {
         SceneParam sp = repository.save(newSceneParam);
-        String userId = principal.getAttribute("sub");
-        rs.RenderProcess(sp, userId);
-        return new RenderResponse(sp, userId);
+        String user_id = principal.getAttribute("sub");
+        rs.RenderProcess(sp, user_id);
+        return new RenderResponse(sp, user_id);
     }
 
     // SceneParam newSceneParam(@RequestBody SceneParam newSceneParam) {

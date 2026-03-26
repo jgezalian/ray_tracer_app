@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-form-component',
@@ -15,8 +16,8 @@ import { HttpClient } from '@angular/common/http';
 export class InputFormComponent {
   private http = inject(HttpClient);
   submitted = false;
-
   model = new InputParams(0, 0);
+  @Output() rendered = new EventEmitter<void>();
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
@@ -28,12 +29,9 @@ export class InputFormComponent {
     this.http
       .post<string>('api/render', userParams, {
         mode: 'cors',
-        withCredentials: true
+        withCredentials: true,
       })
-      .subscribe((response) => {
-        console.log(response);
-        
-      });
+      .subscribe(() => this.rendered.emit());
     this.submitted = true;
   }
 }

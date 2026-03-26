@@ -4,10 +4,11 @@ import { Injectable, inject } from '@angular/core';
 import { User } from './user';
 import { InputFormComponent } from '../input-form-component/input-form-component';
 import { signal } from '@angular/core';
+import { ListRendersComponent } from '../list-renders-component/list-renders-component';
 
 @Component({
   selector: 'app-oauth-component',
-  imports: [InputFormComponent],
+  imports: [InputFormComponent, ListRendersComponent],
   templateUrl: './oauth-component.html',
   styleUrl: './oauth-component.css',
 })
