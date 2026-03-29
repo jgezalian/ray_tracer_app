@@ -10,7 +10,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.jgezalian.ballistics_backend.service.VideoStorageService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,15 +17,10 @@ import java.util.List;
 public class VideoStoreController {
     private final VideoStorageService vs;
     @Value("${app.s3.bucket}")
-    private String bucket_name;
+    private String bucketName;
 
     public VideoStoreController(VideoStorageService vs) {
         this.vs = vs;
     }
 
-    @GetMapping("/list_renders")
-    public CompletableFuture<List<String>> listRenders(@AuthenticationPrincipal OAuth2User principal) {
-        String user_id = principal.getAttribute("sub");
-        return vs.listRendersRequest(bucket_name, user_id);
-    }
 }

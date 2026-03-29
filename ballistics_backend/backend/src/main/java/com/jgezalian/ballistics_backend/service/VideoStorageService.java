@@ -1,29 +1,26 @@
 package com.jgezalian.ballistics_backend.service;
 
 import software.amazon.awssdk.core.async.AsyncRequestBody;
-import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Publisher;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
-
-import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
-
 import org.springframework.stereotype.Service;
+
+import com.jgezalian.ballistics_backend.exception.VideoStorageException;
+
 import org.springframework.beans.factory.annotation.Value;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.net.URL;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.time.Duration;
@@ -37,27 +34,35 @@ public class VideoStorageService {
     }
 
     @Value("${app.s3.bucket}")
-    private String bucket_name;
+    private String bucketName;
     S3AsyncClient s3Client = S3AsyncClient.crtCreate();
     private static final Logger logger = Logger.getLogger(VideoStorageService.class.getName());
 
-    // @Value("${app.tmp.dir.renders}")
-    // private String tmp_dir_path_renders_string;
+    public String storeVideo(Long jobId, String userId, Path videoPath) {
+        String s3Key = userId + "/" + jobId + "/render.mp4";
+        try {
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(s3Key)
+                    .build();
 
-    public void storeVideo(String job_id, String user_id, Path job_dir) {
+            s3Client
+                    .putObject(objectRequest,
+                            AsyncRequestBody.fromFile(videoPath))
+                    .join();
+        }
 
-        PutObjectResponse putObjectResponse = s3Client
-                .putObject(req -> req.bucket(bucket_name)
-                        .key(user_id + "/" + job_id),
-                        AsyncRequestBody.fromFile(job_dir.resolve("render.mp4")))
-                .join();
+        catch (Exception e) {
+            throw new VideoStorageException("Failed to put object", e);
+        }
 
         try {
-            Files.deleteIfExists(job_dir.resolve("render.mp4"));
-            Files.deleteIfExists(job_dir);
+            Files.deleteIfExists(videoPath);
         } catch (IOException e) {
-            System.err.println("Caught IOException: " + e.getMessage());
+            throw new VideoStorageException("Could not delete tmp video", e);
         }
+
+        return s3Key;
 
     }
 
@@ -79,7 +84,7 @@ public class VideoStorageService {
 
     }
 
-    public String createPresignedGetUrl(String bucketName, String keyName) {
+    public String createPresignedGetUrl(String keyName) {
         try (S3Presigner presigner = S3Presigner.create()) {
 
             GetObjectRequest objectRequest = GetObjectRequest.builder()
@@ -99,14 +104,14 @@ public class VideoStorageService {
         }
     }
 
-    public CompletableFuture<List<String>> getUserObjectUrls(String bucket_name, String user_id) {
-
+    public CompletableFuture<List<String>> getUserObjectUrls(String bucketName, String userId) {
+        
         List<String> objects = new ArrayList<>();
-        return listAllObjectsAsync(bucket_name, user_id, objects).thenApply(
+        return listAllObjectsAsync(bucketName, userId, objects).thenApply(
                 (response) -> {
                     List<String> urls = new ArrayList<>();
                     for (String object : response) {
-                        urls.add(createPresignedGetUrl(bucket_name, object));
+                        urls.add(createPresignedGetUrl(object));
                     }
                     return urls;
                 });
@@ -135,7 +140,7 @@ public class VideoStorageService {
         }).thenApply(ignored -> List.copyOf(objects));
     }
 
-    public CompletableFuture<List<String>> listRendersRequest(String bucket_name, String user_id) {
-        return getUserObjectUrls(bucket_name, user_id);
+    public CompletableFuture<List<String>> listRendersRequest(String bucketName, String userId) {
+        return getUserObjectUrls(bucketName, userId);
     }
 }

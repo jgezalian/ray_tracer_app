@@ -1,7 +1,5 @@
 package com.jgezalian.ballistics_backend.entity;
 
-import java.util.Objects;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,39 +11,39 @@ import jakarta.persistence.Table;
 public class SceneParam {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private float v_x;
-    private float v_y;
+    private float vX;
+    private float vY;
 
     public SceneParam() {
 
     }
 
-    public SceneParam(float v_x, float v_y) {
-        this.v_x = v_x;
-        this.v_y = v_y;
+    public SceneParam(float vX, float vY) {
+        this.vX = vX;
+        this.vY = vY;
     }
 
     public float[] getVelocities() {
-        float[] vs = {this.v_x, this.v_y};
+        float[] vs = { this.vX, this.vY };
         return vs;
     }
 
-    public float getV_x() {
-        return v_x;
+    public float getVx() {
+        return vX;
     }
 
-    public float getV_y() {
-        return v_y;
+    public float getVy() {
+        return vY;
     }
 
-    public void setV_x(float _v_x) {
-        this.v_x = _v_x;
+    public void setVx(float _vX) {
+        this.vX = _vX;
     }
 
-    public void setV_y(float _v_y) {
-        this.v_y = _v_y;
+    public void setVy(float _vY) {
+        this.vY = _vY;
     }
 
 }

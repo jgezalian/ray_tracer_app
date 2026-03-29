@@ -1,7 +1,7 @@
 export class InputParams {
     constructor(
-        public v_x: number,
-        public v_y: number
+        public vX: number,
+        public vY: number
     ) {}
     
 }

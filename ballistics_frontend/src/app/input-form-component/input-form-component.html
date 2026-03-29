@@ -2,27 +2,27 @@
   <h1>input params</h1>
   <form (ngSubmit)="onSubmit(inputForm)" #inputForm="ngForm">
     <div class="form-group">
-      <label for="v_x">v_x</label>
+      <label for="v_x">x velocity</label>
       <input
         type="number"
         step="any"
         class="form-control"
         id="v_x"
         required
-        [(ngModel)]="model.v_x"
+        [(ngModel)]="model.vX"
         name="v_x"
         #v_x="ngModel"
       />
     </div>
     <div class="form-group">
-      <label for="v_y">v_y</label>
+      <label for="v_y">y velocity</label>
       <input
         type="number"
         step="any"
         class="form-control"
         id="v_y"
         required
-        [(ngModel)]="model.v_y"
+        [(ngModel)]="model.vY"
         name="v_y"
         #v_y="ngModel"
       />

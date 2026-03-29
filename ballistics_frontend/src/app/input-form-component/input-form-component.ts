@@ -25,9 +25,9 @@ export class InputFormComponent {
       return;
     }
 
-    const userParams = new InputParams(this.model.v_x, this.model.v_y);
+    const userParams = new InputParams(this.model.vX, this.model.vY);
     this.http
-      .post<string>('api/render', userParams, {
+      .post<string>('api/jobs', userParams, {
         mode: 'cors',
         withCredentials: true,
       })
