@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { User } from './user';
+import { inject } from '@angular/core';
 import { InputFormComponent } from '../input-form-component/input-form-component';
-import { signal } from '@angular/core';
 import { ListRendersComponent } from '../list-renders-component/list-renders-component';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-oauth-component',
@@ -12,50 +10,14 @@ import { ListRendersComponent } from '../list-renders-component/list-renders-com
   templateUrl: './oauth-component.html',
   styleUrl: './oauth-component.css',
 })
-@Injectable({ providedIn: 'root' })
 export class OauthComponent {
-  private http = inject(HttpClient);
-
-  private user = new User();
-  private auth = signal<boolean | null>(null);
-
-  getAuth() {
-    return this.auth();
-  }
-
-  getUser() {
-    return this.user;
-  }
-
-  getUserData() {
-    type user_response = { name: string };
-    return this.http.get<user_response>('api/user', { withCredentials: true });
-  }
-
-  logout() {
-    const httpOptions: Object = {
-      responseType: 'text',
-      mode: 'cors',
-      withCredentials: true,
-    };
-    this.http
-      .post<string>('api/logout', null, httpOptions)
-      .subscribe((response) => {
-        window.location.reload();
-      });
-  }
+  authService = inject(AuthService);
 
   ngOnInit() {
-    this.getUserData().subscribe({
-      next: (user) => {
-        this.user.setName(user.name);
-        this.auth.set(true);
-      },
-      error: (err) => {
-        if (err.status === 401 || err.status === 403) {
-          this.auth.set(false);
-        }
-      },
-    });
+    this.authService.getCurrentUser();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

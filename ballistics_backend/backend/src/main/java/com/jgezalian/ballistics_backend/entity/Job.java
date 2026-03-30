@@ -22,10 +22,10 @@ public class Job {
     private String userId;
 
     @Column(name = "v_x", nullable = false)
-    private float vX;
+    private Double vX;
 
     @Column(name = "v_y", nullable = false)
-    private float vY;
+    private Double vY;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "job_status", nullable = false)
@@ -69,19 +69,19 @@ public class Job {
         this.userId = userId;
     }
 
-    public float getVx() {
+    public Double getVx() {
         return vX;
     }
 
-    public void setVx(float vX) {
+    public void setVx(Double vX) {
         this.vX = vX;
     }
 
-    public float getVy() {
+    public Double getVy() {
         return vY;
     }
 
-    public void setVy(float vY) {
+    public void setVy(Double vY) {
         this.vY = vY;
     }
 

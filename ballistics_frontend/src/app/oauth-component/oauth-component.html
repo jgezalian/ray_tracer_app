@@ -1,12 +1,17 @@
-@if (getAuth()) {
+@if (authService.loading()) {
+  <div id="loading">loading...</div>
+}
+
+@else if (authService.isAuthenticated()) {
   <div class="container authenticated">
     <app-input-form-component (rendered)="list.listRenders()"></app-input-form-component>
     <app-list-renders-component #list></app-list-renders-component>
-    Logged in as: <span id="user">{{ getUser().getName() }}</span>
+    Logged in as: <span id="user">{{ authService.user()?.name }}</span>
     <button (click)="logout()">logout</button>
   </div>
+
 } @else {
   <div class="container unauthenticated">
-    Login with Google: <a href="http://localhost:8080/oauth2/authorization/google">click here</a>
+    Login with Google: <a [href]="authService.loginUrl">click here</a>
   </div>
 }

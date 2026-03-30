@@ -9,4 +9,5 @@ public interface JobsRepository extends JpaRepository<Job, Long> {
     List<Job> findByUserIdAndJobStatusOrderByCreatedAtDesc(String userId, Job.JobStatus status);
     Optional<Job> findByUserIdAndId(String userId, Long id);
     Optional<Job> findById(Long id);
+    void deleteByUserIdAndId(String userId, Long id);
 }

@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { InputParams } from './input-params';
 import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
+import { jobRequestDto, RenderService, jobResponseDto } from '../render-service';
 
 @Component({
   selector: 'app-input-form-component',
@@ -12,11 +12,13 @@ import { EventEmitter, Output } from '@angular/core';
   templateUrl: './input-form-component.html',
   styleUrl: './input-form-component.css',
 })
-@Injectable({ providedIn: 'root' })
 export class InputFormComponent {
-  private http = inject(HttpClient);
+  private renderService = inject(RenderService);
+  readonly currentJob = signal<jobResponseDto | null>(null);
+  
   submitted = false;
   model = new InputParams(0, 0);
+  readonly error = signal<string | null>(null);
   @Output() rendered = new EventEmitter<void>();
 
   onSubmit(form: NgForm) {
@@ -24,14 +26,13 @@ export class InputFormComponent {
       form.control.markAllAsTouched();
       return;
     }
+    this.error.set(null);
 
-    const userParams = new InputParams(this.model.vX, this.model.vY);
-    this.http
-      .post<string>('api/jobs', userParams, {
-        mode: 'cors',
-        withCredentials: true,
-      })
-      .subscribe(() => this.rendered.emit());
-    this.submitted = true;
+    const body: jobRequestDto = {
+      vX: this.model.vX,
+      vY: this.model.vY,
+    };
+    
+    this.currentJob.set(this.renderService.createJob(body));
   }
 }

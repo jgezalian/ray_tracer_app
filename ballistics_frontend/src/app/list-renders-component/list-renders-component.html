@@ -1,5 +1,11 @@
 <div id="renders">
-    @for (url of videoUrls(); track url) {
-        <app-render-component [vid_src]="url"></app-render-component>
+  @if (renderService.listLoading()) {
+    <p>loading previous renders...</p>
+  } @else if (renderService.listError()) {
+    <p>{{ renderService.listError() }}</p>
+  } @else {
+    @for (video of renderService.videoUrls(); track video.id) {
+      <app-render-component [vid_src]="video.url"></app-render-component>
     }
+  }
 </div>

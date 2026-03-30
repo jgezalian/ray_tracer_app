@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/render-component/render-component.css"],
+  "sourcesContent": ["video {\n    width: 100%;\n    max-width: 1920px;\n    height: auto;\n}"],
+  "mappings": ";AAAA;AACI,SAAO;AACP,aAAW;AACX,UAAQ;AACZ;",
+  "names": []
+}

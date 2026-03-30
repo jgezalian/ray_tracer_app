@@ -1,0 +1,94 @@
+/* src/styles.css */
+:root {
+  color-scheme: dark;
+  --bg: #929292;
+  --surface: #1e1e1e;
+  --surface-2: #232323;
+  --text: #e8e8e8;
+  --muted: #a8a8a8;
+  --border: #2f2f2f;
+  --primary: #8ab4f8;
+  --focus: #7c3aed;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  line-height: 1.4;
+}
+a {
+  color: var(--primary);
+}
+a:visited {
+  color: #c58af9;
+}
+main {
+  padding: 24px;
+}
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+  color: var(--text);
+}
+.form_container,
+.container {
+  max-width: 520px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.form-group {
+  margin: 12px 0;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.form-control,
+input,
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+}
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+button {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #2a2a2a;
+  color: var(--text);
+  cursor: pointer;
+}
+button:hover {
+  background: #343434;
+}
+
+/* angular:styles/global:styles */
+/*# sourceMappingURL=styles.css.map */

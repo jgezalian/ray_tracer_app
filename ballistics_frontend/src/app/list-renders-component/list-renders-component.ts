@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { renderComponent } from "../render-component/render-component";
+import { RenderService } from '../render-service';
 
 
 @Component({
@@ -11,17 +11,11 @@ import { renderComponent } from "../render-component/render-component";
   styleUrl: './list-renders-component.css',
 })
 export class ListRendersComponent {
-  private http = inject(HttpClient);
-  videoUrls = signal<string[]>([]);
-  listRenders() {
-    return this.http
-      .get<string[]>('/api/list_renders', { withCredentials: true })
-      .subscribe((response) => {
-        this.videoUrls.set(response);
-      });
+  renderService = inject(RenderService);
+
+  listRenders(): void {
+    this.renderService.listRenders();
   }
-
-
   ngOnInit() {
     this.listRenders();
   }

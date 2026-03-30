@@ -34,16 +34,7 @@ public class OAuth2Login {
                 http.csrf((csrf) -> csrf.spa());
                 http.logout(l -> l
                                 .logoutSuccessUrl("http://localhost:4200").permitAll());
-                // http.exceptionHandling(e -> e
-                // .accessDeniedHandler((req, res, ex) -> {
-                // log.warn("403 {} {} ex={}", req.getMethod(), req.getRequestURI(),
-                // ex.toString());
-                // res.sendError(403);
-                // })
-                // .authenticationEntryPoint(new
-                // HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
-                // http.csrf((csrf) -> csrf
-                // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+
 
                 return http.build();
         }

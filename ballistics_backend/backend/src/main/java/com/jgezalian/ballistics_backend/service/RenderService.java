@@ -16,7 +16,7 @@ public class RenderService {
 
     private final Path tmpDirPath;
 
-    public RenderService(VideoStorageService vs,
+    public RenderService(
             @Value("${app.tmp.dir}") String tmpDirPathString) {
         this.tmpDirPath = Paths.get(tmpDirPathString);
     }
@@ -24,7 +24,6 @@ public class RenderService {
     public void dirCheck(Path tmpDirPath) {
         try {
             Files.createDirectories(tmpDirPath);
-            return;
         }
 
         catch (IOException e) {
@@ -33,7 +32,7 @@ public class RenderService {
 
     }
 
-    public Path renderProcess(float vX, float vY, String userId, Long id) {
+    public Path renderProcess(double vX, double vY, Long id) {
         Long jobId = id;
         String jobIdString = jobId.toString();
         Path videoPath = Paths.get("");
