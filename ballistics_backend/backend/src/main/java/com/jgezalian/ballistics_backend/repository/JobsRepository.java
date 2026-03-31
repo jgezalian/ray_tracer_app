@@ -10,4 +10,5 @@ public interface JobsRepository extends JpaRepository<Job, Long> {
     Optional<Job> findByUserIdAndId(String userId, Long id);
     Optional<Job> findById(Long id);
     void deleteByUserIdAndId(String userId, Long id);
+    Optional<Job> findByUserIdAndIdAndJobStatus(String userId, Long id, Job.JobStatus status);
 }

@@ -13,8 +13,7 @@ import { jobRequestDto, RenderService, jobResponseDto } from '../render-service'
   styleUrl: './input-form-component.css',
 })
 export class InputFormComponent {
-  private renderService = inject(RenderService);
-  readonly currentJob = signal<jobResponseDto | null>(null);
+  renderService = inject(RenderService);
   
   submitted = false;
   model = new InputParams(0, 0);
@@ -32,7 +31,7 @@ export class InputFormComponent {
       vX: this.model.vX,
       vY: this.model.vY,
     };
-    
-    this.currentJob.set(this.renderService.createJob(body));
+    this.renderService.createJob(body);
+    this.renderService.videoLoaded.set(false);
   }
 }

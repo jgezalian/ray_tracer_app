@@ -1,3 +1,5 @@
+<button (click) ="deleteVideo(vid_id)">delete</button>
+  
 @if(failed()) {
   <div class="video-unavailable">
     video unavailable
@@ -5,10 +7,12 @@
 }
 
 @else() {
-  <video controls>
+  <div class="video">
+  <video controls [id]="vid_id" (canplay)="onVideoReady()">
   <source [src]="vid_src" type="video/mp4" (error)="onVideoError()" />
   Your browser can't play this video. Try downloading it:
   <a [href]="vid_src">anim-browser.mp4</a>
 </video>
+</div>
 }
 

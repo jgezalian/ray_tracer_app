@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
+import org.springframework.transaction.annotation.Transactional;
 import com.jgezalian.ballistics_backend.dto.CreateJobRequest;
 import com.jgezalian.ballistics_backend.entity.Job;
 import com.jgezalian.ballistics_backend.repository.JobsRepository;
@@ -41,7 +41,6 @@ public class JobService {
         this.je = je;
     }
 
-
     public Job createQueuedJob(CreateJobRequest jobRequest, String userId) {
         Job job = new Job();
         job.setVx(jobRequest.getVx());
@@ -62,8 +61,17 @@ public class JobService {
         return jr.findByUserIdAndId(userId, id);
     }
 
+    public Optional<Job> getUserCompletedJob(String userId, Long id) {
+        return jr.findByUserIdAndIdAndJobStatus(userId, id, JobStatus.COMPLETED);
+    }
+
     public List<Job> getUserCompletedJobs(String userId) {
         return jr.findByUserIdAndJobStatusOrderByCreatedAtDesc(userId, JobStatus.COMPLETED);
+    }
+
+    public Video getUserVideo(String userId, Long id) {
+        Job job = getUserCompletedJob(userId, id).orElseThrow(() -> new JobNotFoundException(id));
+        return new Video(job.getId(), vs.createPresignedGetUrl(job.getS3Key()));
     }
 
     public List<Video> getUserVideos(String userId) {
@@ -131,9 +139,10 @@ public class JobService {
 
     }
 
+    @Transactional
     public void deleteUserJob(Long id, String userId) {
         Job job = jr.findByUserIdAndId(userId, id).orElseThrow(() -> new JobNotFoundException(id));
-        if(job.getJobStatus() == JobStatus.QUEUED || job.getJobStatus() == JobStatus.RUNNING) {
+        if (job.getJobStatus() == JobStatus.QUEUED || job.getJobStatus() == JobStatus.RUNNING) {
             // throw new VideoStorageException("Unable to delete job");
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Cannot delete queued or running job");
         }

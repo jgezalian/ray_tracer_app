@@ -5,7 +5,7 @@
     <p>{{ renderService.listError() }}</p>
   } @else {
     @for (video of renderService.videoUrls(); track video.id) {
-      <app-render-component [vid_src]="video.url"></app-render-component>
+      <app-render-component [vid_src]="video.url" [vid_id]="video.id"></app-render-component>
     }
   }
 </div>

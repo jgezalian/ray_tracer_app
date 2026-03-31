@@ -29,4 +29,8 @@
     </div>
     <button type="submit">Render</button>
   </form>
+
+  @if (!renderService.videoLoaded()) {
+    <p>rendering video...</p>
+  }
 </div>

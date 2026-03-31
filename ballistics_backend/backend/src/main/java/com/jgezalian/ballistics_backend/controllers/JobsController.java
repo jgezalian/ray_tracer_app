@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.jgezalian.ballistics_backend.entity.Job;
 import com.jgezalian.ballistics_backend.service.JobService;
 import com.jgezalian.ballistics_backend.exception.JobNotFoundException;
 import com.jgezalian.ballistics_backend.dto.CreateJobRequest;
-import com.jgezalian.ballistics_backend.entity.Job.JobStatus;
 import com.jgezalian.ballistics_backend.dto.Video;
 import java.util.List;
 
@@ -44,8 +42,7 @@ public class JobsController {
     }
 
     @GetMapping("jobs")
-    public List<Job> getUserJobs(@AuthenticationPrincipal OAuth2User principal, @RequestParam(required = false) JobStatus status) {
-        if(status == JobStatus.COMPLETED) {}
+    public List<Job> getUserJobs(@AuthenticationPrincipal OAuth2User principal) {
         String userId = principal.getAttribute("sub");
         return js.getUserJobs(userId);
     }
@@ -60,6 +57,12 @@ public class JobsController {
     public List<Video> listRenders(@AuthenticationPrincipal OAuth2User principal) {
         String userId = principal.getAttribute("sub");
         return js.getUserVideos(userId);
+    }
+
+    @GetMapping("get_render/{id}")
+    public Video getRender(@AuthenticationPrincipal OAuth2User principal, @PathVariable("id") Long id) {
+        String userId = principal.getAttribute("sub");
+        return js.getUserVideo(userId, id);
     }
 
     @DeleteMapping("/jobs/{id}")

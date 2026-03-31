@@ -4,8 +4,8 @@
 
 @else if (authService.isAuthenticated()) {
   <div class="container authenticated">
-    <app-input-form-component (rendered)="list.listRenders()"></app-input-form-component>
-    <app-list-renders-component #list></app-list-renders-component>
+    <app-input-form-component></app-input-form-component>
+    <app-list-renders-component></app-list-renders-component>
     Logged in as: <span id="user">{{ authService.user()?.name }}</span>
     <button (click)="logout()">logout</button>
   </div>
