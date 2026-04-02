@@ -6,6 +6,7 @@ import { interval } from 'rxjs';
 export interface jobRequestDto {
   vX: number;
   vY: number;
+  vZ: number;
 }
 
 export interface jobResponseDto {

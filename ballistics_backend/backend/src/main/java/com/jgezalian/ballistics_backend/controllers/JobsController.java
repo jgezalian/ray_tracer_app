@@ -28,14 +28,15 @@ public class JobsController {
         this.js = js;
     }
 
-    @PostMapping("jobs")
+    @PostMapping("/jobs")
     public Job queueJob(@AuthenticationPrincipal OAuth2User principal,
             @RequestBody CreateJobRequest newJobRequest) {
-        if (newJobRequest.getVx() == null || newJobRequest.getVy() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "vX and vY are required");
+        if (newJobRequest.getVx() == null || newJobRequest.getVy() == null || newJobRequest.getVz() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "vX, vY, vZ are required");
         }
-        if (!Double.isFinite(newJobRequest.getVx()) || !Double.isFinite(newJobRequest.getVy())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "vX and vY must be finite");
+        if (!Double.isFinite(newJobRequest.getVx()) || !Double.isFinite(newJobRequest.getVy())
+                || !Double.isFinite(newJobRequest.getVz())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "vX, vY, vZ must be finite");
         }
         String userId = principal.getAttribute("sub");
         return js.createQueuedJob(newJobRequest, userId);

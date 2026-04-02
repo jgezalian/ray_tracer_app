@@ -3,18 +3,22 @@
 namespace ray_tracer::physics
 {
 
-Initial_Conditions::Initial_Conditions(const math::Tuple &_init_velocity, const math::Tuple &_init_coords)
-    : init_velocity(_init_velocity), init_coords(_init_coords)
-{
-}
+    MotionState advance(const MotionState &state, double dt, const MotionParams &params) {
+        return MotionState{state.pos + dt * state.vel + ((params.accel * (dt * dt)/2)), state.vel + dt * params.accel};
+    }
 
-// void set_total_flight_time(math::Tuple init_coords, math::Tuple velocity)
+// Initial_Conditions::Initial_Conditions(const math::Tuple &_init_velocity, const math::Tuple &_init_coords)
+//     : init_velocity(_init_velocity), init_coords(_init_coords)
 // {
 // }
 
-const math::Tuple State::state_at_time(double time_step, math::Tuple &init_velocity, math::Tuple &init_coords, Params &params)
-{
+// // void set_total_flight_time(math::Tuple init_coords, math::Tuple velocity)
+// // {
+// // }
 
-    return cur_coords = (time_step * init_velocity) + (0.5 * params.external_acceleration * (time_step * time_step))  + init_coords;
-}
+// const math::Tuple State::state_at_time(double time_step, math::Tuple &init_velocity, math::Tuple &init_coords, Params &params)
+// {
+
+//     return cur_coords = (time_step * init_velocity) + (0.5 * params.external_acceleration * (time_step * time_step))  + init_coords;
+// }
 } // namespace ray_tracer::physics

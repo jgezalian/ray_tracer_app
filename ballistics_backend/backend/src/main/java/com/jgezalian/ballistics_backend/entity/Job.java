@@ -27,6 +27,9 @@ public class Job {
     @Column(name = "v_y", nullable = false)
     private Double vY;
 
+    @Column(name = "v_z", nullable = false)
+    private Double vZ;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "job_status", nullable = false)
     private JobStatus jobStatus;
@@ -83,6 +86,14 @@ public class Job {
 
     public void setVy(Double vY) {
         this.vY = vY;
+    }
+
+    public Double getVz() {
+        return vZ;
+    }
+
+    public void setVz(Double vZ) {
+        this.vZ = vZ;
     }
 
     public JobStatus getJobStatus() {

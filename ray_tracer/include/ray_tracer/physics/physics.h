@@ -5,39 +5,62 @@
 
 namespace ray_tracer::physics
 {
-struct Params
+struct MotionState
 {
-    Params() : external_acceleration(math::vector(0, 0, 0))
-    {
-    }
+    math::Tuple pos;
+    math::Tuple vel;
 
-    Params(math::Tuple extern_accel) : external_acceleration(extern_accel)
-    {
-    }
-    math::Tuple external_acceleration;
+    MotionState() : pos(math::point(0, 0, 0)), vel(math::vector(0, 0, 0)) {};
+
+    MotionState(math::Tuple _pos, math::Tuple _vel) : pos(_pos), vel(_vel) {};
 };
 
-struct Initial_Conditions
+struct MotionParams
 {
-    Initial_Conditions() : init_velocity(math::vector(0, 0, 0)), init_coords(math::point(0, 0, 0))
-    {
-    }
-    Initial_Conditions(const math::Tuple &init_velocity, const math::Tuple &init_coords);
-    math::Tuple init_velocity;
-    math::Tuple init_coords;
+    math::Tuple accel;
+    MotionParams() : accel(math::vector(0, 0, 0)) {};
+
+    MotionParams(math::Tuple _accel) : accel(_accel) {};
+
+    
 };
-struct State : public Initial_Conditions
-{
-    State()
-        : total_flight_time(std::numeric_limits<double>::max()), cur_coords(math::point(0, 0, 0)),
-          cur_velocity(math::vector(0, 0, 0))
-    {
-    }
-    double total_flight_time;
-    math::Tuple cur_coords;
-    math::Tuple cur_velocity;
-    const math::Tuple state_at_time(double time_step, math::Tuple &init_velocity, math::Tuple &init_coords, Params &params);
-};
+
+MotionState advance(const MotionState &state, double dt, const MotionParams &params);
+
+// struct Params
+// {
+//     Params() : external_acceleration(math::vector(0, 0, 0))
+//     {
+//     }
+
+//     Params(math::Tuple extern_accel) : external_acceleration(extern_accel)
+//     {
+//     }
+//     math::Tuple external_acceleration;
+// };
+
+// struct Initial_Conditions
+// {
+//     Initial_Conditions() : init_velocity(math::vector(0, 0, 0)), init_coords(math::point(0, 0, 0))
+//     {
+//     }
+//     Initial_Conditions(const math::Tuple &init_velocity, const math::Tuple &init_coords);
+//     math::Tuple init_velocity;
+//     math::Tuple init_coords;
+// };
+// struct State : public Initial_Conditions
+// {
+//     State()
+//         : total_flight_time(std::numeric_limits<double>::max()), cur_coords(math::point(0, 0, 0)),
+//           cur_velocity(math::vector(0, 0, 0))
+//     {
+//     }
+//     double total_flight_time;
+//     math::Tuple cur_coords;
+//     math::Tuple cur_velocity;
+//     const math::Tuple state_at_time(double time_step, math::Tuple &init_velocity, math::Tuple &init_coords, Params
+//     &params);
+// };
 
 // void set_total_flight_time(math::Tuple init_coords, math::Tuple velocity);
 

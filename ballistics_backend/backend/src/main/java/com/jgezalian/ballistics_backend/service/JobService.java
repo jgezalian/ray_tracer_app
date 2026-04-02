@@ -45,6 +45,7 @@ public class JobService {
         Job job = new Job();
         job.setVx(jobRequest.getVx());
         job.setVy(jobRequest.getVy());
+        job.setVz(jobRequest.getVz());
         job.setUserId(userId);
         job.setJobStatus(JobStatus.QUEUED);
         job.setCreatedAt(Instant.now());
@@ -94,7 +95,7 @@ public class JobService {
             job.setStartedAt(Instant.now());
             jr.save(job);
 
-            Path videoPath = rs.renderProcess(job.getVx(), job.getVy(), job.getId());
+            Path videoPath = rs.renderProcess(job.getVx(), job.getVy(), job.getVz(), job.getId());
             String s3Key = vs.storeVideo(job.getId(), job.getUserId(), videoPath);
 
             job.setJobStatus(JobStatus.COMPLETED);

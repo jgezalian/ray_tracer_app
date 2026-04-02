@@ -16,7 +16,7 @@ export class InputFormComponent {
   renderService = inject(RenderService);
   
   submitted = false;
-  model = new InputParams(0, 0);
+  model = new InputParams(0, 0, 0);
   readonly error = signal<string | null>(null);
   @Output() rendered = new EventEmitter<void>();
 
@@ -30,6 +30,7 @@ export class InputFormComponent {
     const body: jobRequestDto = {
       vX: this.model.vX,
       vY: this.model.vY,
+      vZ: this.model.vZ
     };
     this.renderService.createJob(body);
     this.renderService.videoLoaded.set(false);

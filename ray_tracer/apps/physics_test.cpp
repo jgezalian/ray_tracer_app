@@ -59,12 +59,12 @@ void animate(double v_x, double v_y)
         chain_transform({translation(camera.view_volume_x_left_bound + 1, camera.view_volume_y_lower_bound + 1, 0)}));
     world.add(center_sphere);
 
-    Initial_Conditions init_cond{vector(v_x, v_y, 0), center_sphere->get_transform() * point(0, 0, 0)};
-    Animation anim;
-    State state;
-    Params params{vector(0, -9.8, 0)};
+    // Initial_Conditions init_cond{vector(v_x, v_y, 0), center_sphere->get_transform() * point(0, 0, 0)};
+    // Animation anim;
+    // State state;
+    // Params params{vector(0, -9.8, 0)};
 
-    anim.animate_shape_raw_rgb(center_sphere, state, init_cond, params, world, camera);
+    //anim.animate_shape_raw_rgb(center_sphere, state, init_cond, params, world, camera);
 }
 
 int main(int argc, char *argv[])

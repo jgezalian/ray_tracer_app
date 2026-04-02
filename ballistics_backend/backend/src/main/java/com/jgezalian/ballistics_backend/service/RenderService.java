@@ -32,7 +32,7 @@ public class RenderService {
 
     }
 
-    public Path renderProcess(double vX, double vY, Long id) {
+    public Path renderProcess(double vX, double vY, double vZ, Long id) {
         Long jobId = id;
         String jobIdString = jobId.toString();
         Path videoPath = Paths.get("");
@@ -40,10 +40,11 @@ public class RenderService {
         dirCheck(jobDir);
         String v_x = String.valueOf(vX);
         String v_y = String.valueOf(vY);
+        String v_z = String.valueOf(vZ);
 
         try {
-            Path exe = Paths.get("src/main/c/physics_test").toAbsolutePath();
-            ProcessBuilder pb = new ProcessBuilder(exe.toString(), v_x, v_y);
+            Path exe = Paths.get("src/main/c/animate_sphere_on_plane").toAbsolutePath();
+            ProcessBuilder pb = new ProcessBuilder(exe.toString(), v_x, v_y, v_z);
             pb.directory(jobDir.toFile());
 
             File log = jobDir.resolve("render_rgb.log").toFile();
@@ -76,11 +77,17 @@ public class RenderService {
 
         try {
             ProcessBuilder pb = new ProcessBuilder(
-                    "ffmpeg", "-f", "rawvideo", "-pix_fmt", "rgb24", "-video_size", "1280x720",
+                    "ffmpeg",
+                    "-f", "rawvideo",
+                    "-pix_fmt", "rgb24",
+                    "-video_size", "1920x1080",
                     "-framerate", "120",
-                    "-i", "render.rgb", "-c:v", "libx264",
-                    "-crf", "20",
-                    "-pix_fmt", "yuv420p", "render.mp4");
+                    "-i", "render.rgb",
+                    "-c:v", "libx264",
+                    "-preset", "veryslow",
+                    "-crf", "4",
+                    "-pix_fmt", "yuv420p",
+                    "render.mp4");
 
             pb.directory(jobDir.toFile());
 

@@ -27,6 +27,19 @@
         #v_y="ngModel"
       />
     </div>
+    <div class="form-group">
+      <label for="v_z">z velocity</label>
+      <input
+        type="number"
+        step="any"
+        class="form-control"
+        id="v_z"
+        required
+        [(ngModel)]="model.vZ"
+        name="v_z"
+        #v_z="ngModel"
+      />
+    </div>
     <button type="submit">Render</button>
   </form>
 

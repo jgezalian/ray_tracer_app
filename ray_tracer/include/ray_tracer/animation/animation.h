@@ -1,21 +1,35 @@
 #pragma once
 #include <ray_tracer/physics/physics.h>
 
-namespace ray_tracer::geometry {
-    class Shape;
+namespace ray_tracer::geometry
+{
+class Shape;
 }
 
+namespace ray_tracer::collision
+{
+struct HalfSpaceXZ;
+struct Floor;
+} // namespace ray_tracer::collision
 
-namespace ray_tracer::world {
-    struct World;
+namespace ray_tracer::world
+{
+struct World;
 }
 
-namespace ray_tracer::img {
-    struct Canvas;
+namespace ray_tracer::img
+{
+struct Canvas;
 }
 
-namespace ray_tracer::camera {
-    struct Camera;
+namespace ray_tracer::camera
+{
+struct Camera;
+}
+
+namespace ray_tracer::math
+{
+struct Matrix;
 }
 
 namespace ray_tracer::animation
@@ -41,8 +55,12 @@ struct Animation
     {
     }
 
-    void animate_shape_raw_rgb(geometry::Shape *shape, physics::State &state, physics::Initial_Conditions &init_cond, physics::Params &params, world::World &world, camera::Camera &camera);
-    void animate_shape_ppm(geometry::Shape *shape, physics::State &state, physics::Initial_Conditions &init_cond, physics::Params &params, world::World &world, camera::Camera &camera);
+    void animate_shape_raw_rgb(math::Matrix m, geometry::Shape *shape, physics::MotionState &state,
+                               physics::MotionParams &params, world::World &world, camera::Camera &camera,
+                               collision::HalfSpaceXZ right, collision::HalfSpaceXZ left, collision::Floor floor);
 
+    void animate_shape_ppm(math::Matrix m, geometry::Shape *shape, physics::MotionState &state,
+                           physics::MotionParams &params, world::World &world, camera::Camera &camera,
+                           collision::HalfSpaceXZ right, collision::HalfSpaceXZ left, collision::Floor floor);
 };
 } // namespace ray_tracer::animation

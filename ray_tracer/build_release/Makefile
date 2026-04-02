@@ -57,10 +57,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge"
+CMAKE_SOURCE_DIR = /Users/jackgezalian/Development/ray_tracer_app/ray_tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release"
+CMAKE_BINARY_DIR = /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,16 +87,16 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release/CMakeFiles" "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release/CMakeFiles /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release/CMakeFiles 0
 .PHONY : all
 
 # The main codegen target
 codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release/CMakeFiles" "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release/CMakeFiles /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/jackgezalian/Development/C++ Projects/ray_tracer_challenge/build_release/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/jackgezalian/Development/ray_tracer_app/ray_tracer/build_release/CMakeFiles 0
 .PHONY : codegen
 
 # The main clean target
@@ -176,6 +176,19 @@ physics_test/fast:
 .PHONY : physics_test/fast
 
 #=============================================================================
+# Target rules for targets named animate_sphere_on_plane
+
+# Build rule for target.
+animate_sphere_on_plane: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 animate_sphere_on_plane
+.PHONY : animate_sphere_on_plane
+
+# fast build rule for target.
+animate_sphere_on_plane/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/animate_sphere_on_plane.dir/build.make CMakeFiles/animate_sphere_on_plane.dir/build
+.PHONY : animate_sphere_on_plane/fast
+
+#=============================================================================
 # Target rules for targets named scratch
 
 # Build rule for target.
@@ -187,6 +200,30 @@ scratch: cmake_check_build_system
 scratch/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/scratch.dir/build.make CMakeFiles/scratch.dir/build
 .PHONY : scratch/fast
+
+apps/animate_sphere_on_plane.o: apps/animate_sphere_on_plane.cpp.o
+.PHONY : apps/animate_sphere_on_plane.o
+
+# target to build an object file
+apps/animate_sphere_on_plane.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/animate_sphere_on_plane.dir/build.make CMakeFiles/animate_sphere_on_plane.dir/apps/animate_sphere_on_plane.cpp.o
+.PHONY : apps/animate_sphere_on_plane.cpp.o
+
+apps/animate_sphere_on_plane.i: apps/animate_sphere_on_plane.cpp.i
+.PHONY : apps/animate_sphere_on_plane.i
+
+# target to preprocess a source file
+apps/animate_sphere_on_plane.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/animate_sphere_on_plane.dir/build.make CMakeFiles/animate_sphere_on_plane.dir/apps/animate_sphere_on_plane.cpp.i
+.PHONY : apps/animate_sphere_on_plane.cpp.i
+
+apps/animate_sphere_on_plane.s: apps/animate_sphere_on_plane.cpp.s
+.PHONY : apps/animate_sphere_on_plane.s
+
+# target to generate assembly for a file
+apps/animate_sphere_on_plane.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/animate_sphere_on_plane.dir/build.make CMakeFiles/animate_sphere_on_plane.dir/apps/animate_sphere_on_plane.cpp.s
+.PHONY : apps/animate_sphere_on_plane.cpp.s
 
 apps/misc.o: apps/misc.cpp.o
 .PHONY : apps/misc.o
@@ -644,6 +681,30 @@ src/math/util.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray_tracer.dir/build.make CMakeFiles/ray_tracer.dir/src/math/util.cpp.s
 .PHONY : src/math/util.cpp.s
 
+src/physics/collision.o: src/physics/collision.cpp.o
+.PHONY : src/physics/collision.o
+
+# target to build an object file
+src/physics/collision.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray_tracer.dir/build.make CMakeFiles/ray_tracer.dir/src/physics/collision.cpp.o
+.PHONY : src/physics/collision.cpp.o
+
+src/physics/collision.i: src/physics/collision.cpp.i
+.PHONY : src/physics/collision.i
+
+# target to preprocess a source file
+src/physics/collision.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray_tracer.dir/build.make CMakeFiles/ray_tracer.dir/src/physics/collision.cpp.i
+.PHONY : src/physics/collision.cpp.i
+
+src/physics/collision.s: src/physics/collision.cpp.s
+.PHONY : src/physics/collision.s
+
+# target to generate assembly for a file
+src/physics/collision.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray_tracer.dir/build.make CMakeFiles/ray_tracer.dir/src/physics/collision.cpp.s
+.PHONY : src/physics/collision.cpp.s
+
 src/physics/physics.o: src/physics/physics.cpp.o
 .PHONY : src/physics/physics.o
 
@@ -701,11 +762,15 @@ help:
 	@echo "... codegen"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... animate_sphere_on_plane"
 	@echo "... misc"
 	@echo "... physics_test"
 	@echo "... ray_tracer"
 	@echo "... scratch"
 	@echo "... sphere_on_plane"
+	@echo "... apps/animate_sphere_on_plane.o"
+	@echo "... apps/animate_sphere_on_plane.i"
+	@echo "... apps/animate_sphere_on_plane.s"
 	@echo "... apps/misc.o"
 	@echo "... apps/misc.i"
 	@echo "... apps/misc.s"
@@ -763,6 +828,9 @@ help:
 	@echo "... src/math/util.o"
 	@echo "... src/math/util.i"
 	@echo "... src/math/util.s"
+	@echo "... src/physics/collision.o"
+	@echo "... src/physics/collision.i"
+	@echo "... src/physics/collision.s"
 	@echo "... src/physics/physics.o"
 	@echo "... src/physics/physics.i"
 	@echo "... src/physics/physics.s"

@@ -54,7 +54,7 @@ void draw_scene()
     Gradient_Pattern *gradient_pattern_center_sphere = new Gradient_Pattern({Color(0, 1, 0), Color(0, 0, 1.0)});
     gradient_pattern_center_sphere->set_transform(chain_transform({scaling(2, 2, 2), translation(-1, 0, 0)}));
     center_sphere->material.pattern = gradient_pattern_center_sphere;
-    center_sphere->set_transform(chain_transform({translation(0, 1, -1), scaling(3.3, 3.3, 3.3)}));
+    center_sphere->set_transform(chain_transform({translation(0, 1, -1), scaling(2, 2, 2)}));
     world.objects.push_back(center_sphere);
 
     Camera camera{1920, 1080, pi / 2};

@@ -27,6 +27,7 @@ add_library(ray_tracer
   src/camera/camera.cpp
   src/physics/physics.cpp
   src/animation/animation.cpp
+  src/physics/collision.cpp
 )
 target_include_directories(ray_tracer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(ray_tracer PRIVATE OpenMP::OpenMP_CXX)
@@ -53,6 +54,8 @@ add_executable(misc apps/misc.cpp)
 target_link_libraries(misc PRIVATE ray_tracer)
 add_executable(physics_test apps/physics_test.cpp)
 target_link_libraries(physics_test PRIVATE ray_tracer)
+add_executable(animate_sphere_on_plane apps/animate_sphere_on_plane.cpp)
+target_link_libraries(animate_sphere_on_plane PRIVATE ray_tracer)
 add_executable(scratch apps/scratch.cpp)
 target_link_libraries(scratch PRIVATE ray_tracer)
 
