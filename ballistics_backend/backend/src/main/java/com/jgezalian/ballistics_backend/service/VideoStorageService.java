@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 import java.time.Duration;
 
 @Service
@@ -30,7 +29,6 @@ public class VideoStorageService {
     @Value("${app.s3.bucket}")
     private String bucketName;
     S3AsyncClient s3Client = S3AsyncClient.crtCreate();
-    private static final Logger logger = Logger.getLogger(VideoStorageService.class.getName());
 
     public String storeVideo(Long jobId, String userId, Path videoPath) {
         String s3Key = userId + "/" + jobId + "/render.mp4";
@@ -47,7 +45,7 @@ public class VideoStorageService {
         }
 
         catch (Exception e) {
-            throw new VideoStorageException("Failed to put object", e);
+            throw new VideoStorageException("Failed to put object: " + e.getMessage());
         }
 
         try {
@@ -74,23 +72,6 @@ public class VideoStorageService {
             throw new VideoStorageException("Failed to delete object: ", e);
         }
     }
-
-    // public String getURL(String bucketName, String keyName) {
-    // try {
-    // GetUrlRequest request = GetUrlRequest.builder()
-    // .bucket(bucketName)
-    // .key(keyName)
-    // .build();
-
-    // URL url = s3Client.utilities().getUrl(request);
-    // return url.toString();
-
-    // } catch (S3Exception e) {
-    // System.err.println(e.awsErrorDetails().errorMessage());
-    // }
-    // return "";
-
-    // }
 
     public String createPresignedGetUrl(String keyName) {
         try (S3Presigner presigner = S3Presigner.create()) {
